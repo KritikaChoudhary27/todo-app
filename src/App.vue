@@ -7,7 +7,7 @@ const name = ref('')
 const input_content = ref('')
 const input_category = ref(null)
 
-const todos_asc = computed(()=> todos.value.sort((a,b)=>{
+const todos_asc = computed(()=> todos.value.slice(0).sort((a,b)=>{
   return b.createdAt-a.createdAt
 }))
 
@@ -77,7 +77,7 @@ onMounted(()=>{
       <section class="todo-list">
         <h3>TODO LIST</h3>
         <div class="list">
-          <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
+          <div v-for="todo in todos_asc" v-bind:key="todo" v-bind:todo="todo" :class="`todo-item ${todo.done && 'done'}`">
 					<label>
 						<input type="checkbox" v-model="todo.done" />
 						<span :class="`bubble ${
@@ -97,6 +97,6 @@ onMounted(()=>{
 				</div>
         </div>
       </section>
-      {{ todos_asc }}
+      
    </main>
 </template>
